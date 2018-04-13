@@ -215,7 +215,7 @@ app.controller('index', ['$scope', '$http', '$window', 'UserService', 'localStor
 
     // Get organization events function start
     $scope.getOrganizationEvents = function (uId) {
-        uId = 2;
+        uId = 2;//TODO: Remove this
         console.log('fetching events for organization ID: ' + uId);
         var srvURL = 'https://bugle-pl-srv.herokuapp.com/organizations/' + uId;
         console.log('API URL: ' + srvURL)
