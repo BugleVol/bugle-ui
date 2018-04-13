@@ -68,3 +68,7 @@ li {
   .my_container{
       margin: 0.9rem;
   }
+
+  .back_button {
+        float: left;
+  }
