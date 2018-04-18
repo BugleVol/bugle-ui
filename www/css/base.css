@@ -87,6 +87,18 @@ li {
     background-color: #4CAF50 !important;
     border: none !important;
     padding: 10px 20px !important;
+    box-shadow: 0px 8px 6px -6px black !important;
+}
+
+.btn-shadow {
+    box-shadow: 0px 8px 6px -6px black !important;
+}
+
+.btn-small-blue {
+    background-color: rgb(127, 218, 235) !important;
+    box-shadow: 0px 8px 6px -6px black !important;
+    border: none !important;
+    padding: 1px 5px !important;
 }
 
 .linkbuttonred {
