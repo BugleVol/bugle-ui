@@ -30,7 +30,7 @@
             <h4>
                 Events You have applied to
             </h4>
-            <br><br>
+            <br>
             <ul data-ng-init="getVolunteerEvents(user.uId)">
                 <li data-ng-repeat="event in events" ng-click="viewEventDetails(event)">{{event.eName}}</li>
             </ul>
