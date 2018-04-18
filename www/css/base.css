@@ -129,3 +129,17 @@ li {
 td.ev-details {
     padding: 1rem;
 }
+
+td.ev-details-rt {
+    padding: 1rem;
+    padding-left: 3rem;
+}
+
+div.wrapper {
+    width: 100%;
+    text-align: center;
+}
+
+.btn-center {
+    margin: 0 auto;
+}

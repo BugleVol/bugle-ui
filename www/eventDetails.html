@@ -38,7 +38,7 @@
 					<td class="ev-details">
 						<b>Members: </b>{{event.members}}
 					</td>
-					<td class="ev-details">
+					<td class="ev-details-rt">
 						<button class="btn btn-small-blue">View Members</button>
 					</td>
 				</tr>
@@ -46,7 +46,7 @@
 					<td class="ev-details">
 						<b>Organizer: </b> {{organization.uName}}
 					</td>
-					<td class="ev-details">
+					<td class="ev-details-rt">
 						<button class="btn btn-small-blue">View Organizer</button>
 					</td>
 				</tr>
@@ -54,20 +54,22 @@
 					<td class="ev-details">
 						<b>Time: </b> {{event.datetime}}
 					</td>
-					<td class="ev-details"></td>
+					<td class="ev-details-rt"></td>
 				</tr>
 				<tr>
 					<td class="ev-details">
 						<b>Location: </b> {{event.location}}
 					</td>
-					<td class="ev-details">
+					<td class="ev-details-rt">
 						<button class="btn btn-small-blue">Navigate</button>
 					</td>
 				</tr>
 			</table>
 
-	        <br>
-	        <button class="btn btn-green">Join Event</button>
+			<br>
+			<div class="wrapper">
+				<button class="btn btn-green btn-center">Join Event</button>
+			</div>
             
         </div>
         
