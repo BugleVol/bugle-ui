@@ -33,12 +33,38 @@
         <div class='home__content' style='padding: 20px'>
             <p><b>Event Description:</b></p>
 			<p read-more ng-model="event.description" words="false" length="50"></p>	        
-	        
-			<p><b>Members: </b>{{event.members}} <button class="btn btn-small-blue">View Members</button></p>
-			<p><b>Organizer: </b>{{organization.uName}} <button class="btn btn-small-blue">View Organizer</button></p>
-        
-        	<p><b>Time: </b> {{event.datetime}}</p>
-        	<p><b>Location: </b> {{event.location}} <button class="btn btn-small-blue">Navigate</button></p>
+	        <table class="tbl-ev-details">
+				<tr>
+					<td class="ev-details">
+						<b>Members: </b>{{event.members}}
+					</td>
+					<td class="ev-details">
+						<button class="btn btn-small-blue">View Members</button>
+					</td>
+				</tr>
+				<tr>
+					<td class="ev-details">
+						<b>Organizer: </b> {{organization.uName}}
+					</td>
+					<td class="ev-details">
+						<button class="btn btn-small-blue">View Organizer</button>
+					</td>
+				</tr>
+				<tr>
+					<td class="ev-details">
+						<b>Time: </b> {{event.datetime}}
+					</td>
+					<td class="ev-details"></td>
+				</tr>
+				<tr>
+					<td class="ev-details">
+						<b>Location: </b> {{event.location}}
+					</td>
+					<td class="ev-details">
+						<button class="btn btn-small-blue">Navigate</button>
+					</td>
+				</tr>
+			</table>
 
 	        <br>
 	        <button class="btn btn-green">Join Event</button>
