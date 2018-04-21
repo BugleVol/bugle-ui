@@ -7,6 +7,12 @@ app.config(function (localStorageServiceProvider) {
         .setNotify(true, true);
 });
 
+app.config(function($mdThemingProvider) {
+    $mdThemingProvider.theme('default')
+      .primaryPalette('green')
+      .accentPalette('light-blue');
+  });
+
 
 app.service('UserService', function () {
     var loggedInUser = '';
