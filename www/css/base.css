@@ -18,10 +18,6 @@
     padding: .5rem;
 }
 
-.header-highlight {
-    background-color: rgb(226, 221, 221);
-}
-
 .home__content {
     overflow-y: auto;
 }
