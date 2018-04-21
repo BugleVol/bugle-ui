@@ -27,7 +27,7 @@ button.btn-shadow {
 }
 
 a.linkbutton {
-    background-color: rgb(223, 157, 83);
+    background-color: rgba(223, 157, 83, 0.92);
     color: white;
     text-decoration: none;
     display: block;
