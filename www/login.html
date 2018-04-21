@@ -42,7 +42,7 @@
             <input type="password" placeholder="Enter Password" name="pwd" ng-model="password" required>
 
             <button type="submit" class="btn-shadow" ng-disabled="dataLoading">Login</button>
-            
+            <md-progress-circular class="center_text" md-mode="indeterminate" ng-show="dataLoading"></md-progress-circular>
         </div>
 
         <div class='container'>
