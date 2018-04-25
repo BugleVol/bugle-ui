@@ -733,7 +733,6 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
         console.log('Name: ' + profile.getName());
         console.log('Image URL: ' + profile.getImageUrl());
         console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-        console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
         $scope.$digest();
         //Creating a user based on GUser Profile
         var gUser = {
@@ -742,8 +741,15 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
             "email": profile.getEmail(),
             "type": "guser"
         };
+        updateScopeUser(gUser);
+        console.log('updating session user to (google): ' + JSON.stringify(gUser));
+        localStorageService.set('sessionUser', null);
+        localStorageService.set('sessionUser', gUser);
+        //should type be gUser? or normal vol/org. - should we ask org/vol from user in a modal?
         //Should I save this in our database as well? - don't save password, save id, name, email, give option to add mobile and dob.
+        $window.location.href='/volunteer.html';
     }
     window.onSignIn = onSignIn;
+
 
 }]);
