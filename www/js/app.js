@@ -743,9 +743,7 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
             "type": "guser"
         };
         //Should I save this in our database as well? - don't save password, save id, name, email, give option to add mobile and dob.
-        $window.location.href='/volunteer.html';
     }
     window.onSignIn = onSignIn;
-
 
 }]);
