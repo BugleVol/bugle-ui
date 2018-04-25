@@ -135,7 +135,7 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
         $scope.chat = localStorageService.get('chat');
 
         // do this only on the event details page for volunteers.
-        if ($scope.user && $scope.user.type=='vol' && $window.location.href.includes('/eventDetails.html')) {
+        if ($scope.user && $scope.user.type == 'vol' && $window.location.href.includes('/eventDetails.html')) {
             console.log('checking for event details');
             //fetch org name and check if event is joined.
             //userID of the organizer: $scope.event.uId - fetch the name of this organizer from the API.
@@ -143,7 +143,7 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
             var data = {
                 "orgID": $scope.event.uId,
                 "userID": $scope.user.uId,
-                "eventID":  $scope.event.eId
+                "eventID": $scope.event.eId
             }
 
             $http({
@@ -537,8 +537,8 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
     };
     // function for a volunteer to apply for a event end.
 
-     // function for a volunteer to leave an event start.
-     $scope.leaveEvent = function (event) {
+    // function for a volunteer to leave an event start.
+    $scope.leaveEvent = function (event) {
         console.log('applying For event: ' + JSON.stringify(event) + ', by volunteer: ' + JSON.stringify($scope.user));
 
         var Leavingevent = {
@@ -713,7 +713,7 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
         $window.location.href = '/chat.html';
     };
 
-    $scope.showDetails = function(org) {
+    $scope.showDetails = function (org) {
         console.log('updating session organization to: ' + JSON.stringify(org));
         localStorageService.set('organization', null);
         localStorageService.set('organization', org);
@@ -721,8 +721,21 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
         $window.location.href = '/organizationDetails.html';
     };
 
-    $scope.navigate = function(event) {
+    //For Google Maps Navigation
+    $scope.navigate = function (event) {
         console.log('navigating...');
     }
+
+    //For Google Sign In
+    function onSignIn(googleUser) {
+        var profile = googleUser.getBasicProfile();
+        console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+        console.log('Name: ' + profile.getName());
+        console.log('Image URL: ' + profile.getImageUrl());
+        console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+        $scope.$digest();
+    }
+    window.onSignIn = onSignIn;
+
 
 }]);
