@@ -733,7 +733,17 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
         console.log('Name: ' + profile.getName());
         console.log('Image URL: ' + profile.getImageUrl());
         console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+        console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
         $scope.$digest();
+        //Creating a user based on GUser Profile
+        var gUser = {
+            "uId": profile.getId(),
+            "uName": profile.getName(),
+            "email": profile.getEmail(),
+            "type": "guser"
+        };
+        //Should I save this in our database as well? - don't save password, save id, name, email, give option to add mobile and dob.
+        $window.location.href='/volunteer.html';
     }
     window.onSignIn = onSignIn;
 
