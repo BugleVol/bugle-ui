@@ -24,6 +24,7 @@ app.service('UserService', function () {
     var prevPage = '';
     var chats = '';
     var chat = '';
+    var tmpGUser = '';
 
     return {
         getLoggedInUser: function () {
@@ -79,6 +80,12 @@ app.service('UserService', function () {
         },
         setChat: function (c) {
             chat = c;
+        },
+        getTmpGUser: function () {
+            return tmpGUser;
+        },
+        setTmpGUser: function (tgu) {
+            tmpGUser = tgu;
         }
     }
 });
@@ -123,6 +130,8 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
     // chat
     $scope.chat = {};
 
+    $scope.tempGUser = {};
+
     $scope.fetchSession = function () {
         $scope.user = localStorageService.get('sessionUser');
         $scope.organizations = localStorageService.get('organizations');
@@ -133,6 +142,7 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
         $scope.prevPage = localStorageService.get('prevPage');
         $scope.chats = localStorageService.get('chats');
         $scope.chat = localStorageService.get('chat');
+        $scope.tempGUser = localStorageService.get('tempGUser');
 
         // do this only on the event details page for volunteers.
         if ($scope.user && $scope.user.type == 'vol' && $window.location.href.includes('/eventDetails.html')) {
@@ -751,7 +761,7 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
     $scope.confirmUserType = confirmUserType;
 
     //For Google Sign In
-    function onSignIn(googleUser) {
+    function onSignIn(googleUser, $event) {
         var profile = googleUser.getBasicProfile();
         console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
         console.log('Name: ' + profile.getName());
@@ -775,21 +785,31 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
             "type": $scope.gUserType
         };
 
-
-
-        updateScopeUser(gUser);
-        console.log('updating session user to (google): ' + JSON.stringify(gUser));
-        localStorageService.set('sessionUser', null);
-        localStorageService.set('sessionUser', gUser);
+        updateScopeTempUser(gUser);
+        console.log('updating session temp user to (google): ' + JSON.stringify(gUser));
+        localStorageService.set('tempGUser', null);
+        localStorageService.set('tempGUser', gUser);
         //should type be gUser? or normal vol/org. - should we ask org/vol from user in a modal?
         //Should I save this in our database as well? - don't save password, save id, name, email, give option to add mobile and dob.
-        if (gUser.type === 'vol') {
-            $window.location.href = '/volunteer.html';
-        } else {
-            $window.location.href = '/organization.html';
-        }
+        $window.location.href = '/tempGLogin.html';
     }
     window.onSignIn = onSignIn;
 
+    // Update Scope Temp User function Start
+    var updateScopeTempUser = function (usr) {
+        console.log('updating Temp Google user to: ' + usr);
+        UserService.loggedInUser = usr;
+        $scope.tempGUser = usr;
+    }
+    // Update Scope Temp User function end
+
+    $scope.setGUserType = function(type) {
+        var usr = $scope.tempGUser;
+        usr[type] = type;
+        console.log('Google User has set the type. User Object is: ' + JSON.stringify(usr));
+        updateScopeUser(usr);
+        localStorageService.set('sessionUser', null);
+        localStorageService.set('sessionUser', usr);
+    }
 
 }]);    
