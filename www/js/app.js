@@ -758,6 +758,24 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
         }
     }
 
+    //check for correct format of dob
+    $scope.checkdob = function () {
+        if (!testingDateStr(user.dob)) {
+            $scope.dobError = true;
+        } else {
+            $scope.dobError = false;
+        }
+    }
+
+    //check for correct format of dob
+    $scope.checkmob = function () {
+        if (!testingPhoneStr(user.mobile)) {
+            $scope.mobileError = true;
+        } else {
+            $scope.mobileError = false;
+        }
+    }
+
     // update user Profile details function
     $scope.update = function (user) {
 
@@ -777,22 +795,17 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
             'USERS_LOCATION': $scope.user.location
         };
 
-        $http({
-            url: updateUserURL,
-            method: 'POST',
-            data: updateUserInfo,
-            headers: { 'Content-Type': 'application/json' }
-        }).then(function (response) {
-            console.log('RESPONSE: ' + JSON.stringify(response));
-            if (response.data.status != 'error') {
-                var user = JSON.parse(response.data.user);
-                if (!testingDateStr(user.dob)) {
-                    $scope.dobError = true;
-                }
-                if (!testingPhoneStr(user.mobile)) {
-                    $scope.mobileError = true;
-                }
-                if (testingDateStr(user.dob) & testingPhoneStr(user.mobile)) {
+        //calling the API only if there are no error on forms
+        if (!$scope.dobError && !$scope.mobileError) {
+            $http({
+                url: updateUserURL,
+                method: 'POST',
+                data: updateUserInfo,
+                headers: { 'Content-Type': 'application/json' }
+            }).then(function (response) {
+                console.log('RESPONSE: ' + JSON.stringify(response));
+                if (response.data.status != 'error') {
+                    var user = JSON.parse(response.data.user);
                     updateScopeUser(user);
                     console.log('updated records for user: ' + user);
                     localStorageService.set('sessionUser', null);
@@ -802,23 +815,23 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
                     $scope.dobError = false;
                     $scope.mobileError = false;
                 } else {
-                    if ($scope.dobError) {
-                        showToast('Error: Please Check Date of Birth.');
-                    }
-                    if ($scope.mobileError) {
-                        showToast('Error: Please Check Mobile number.');
-                    }
+                    console.log('ERROR: ' + JSON.stringify(response.data.message));
+                    showToast('Something went wrong while updating Profile. Please try again later.');
                 }
-            } else {
-                console.log('ERROR: ' + JSON.stringify(response.data.message));
+            }, function (response) {
+                console.log('ERROR: ' + JSON.stringify(response));
                 showToast('Something went wrong while updating Profile. Please try again later.');
+            }).finally(function () {
+                $scope.dataLoading = false;
+            });
+        } else {
+            if ($scope.dobError) {
+                showToast('Error: Please Check Date of Birth.');
             }
-        }, function (response) {
-            console.log('ERROR: ' + JSON.stringify(response));
-            showToast('Something went wrong while updating Profile. Please try again later.');
-        }).finally(function () {
-            $scope.dataLoading = false;
-        });
+            if ($scope.mobileError) {
+                showToast('Error: Please Check Mobile number.');
+            }
+        }
     };
 
     // cancel Profile update function
