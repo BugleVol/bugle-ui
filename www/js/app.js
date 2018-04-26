@@ -185,7 +185,7 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
             
         }
 
-        var validUnauthPage = $window.location.herf.includes('/tempGLogin.html') || $window.location.href.includes('/login.html') || $window.location.href.includes('/organisationSignup.html') || $window.location.href.includes('/volunteerSignup.html');
+        var validUnauthPage = $window.location.href.includes('/tempGLogin.html') || $window.location.href.includes('/login.html') || $window.location.href.includes('/organisationSignup.html') || $window.location.href.includes('/volunteerSignup.html');
 
         if (!validUnauthPage && !$scope.user) {
             $window.location.href = '/login.html';
