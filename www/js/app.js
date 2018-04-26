@@ -780,7 +780,9 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
             "type": $scope.gUserType
         };
 
-        if (profile.getEmail()) {
+        var userEmail = profile.getEmail();
+
+        if (userEmail != null) {
             console.log('Google Profile does not have an Email!');
             showToast('Google Profile does not have Email! Sign in using Email');
             $window.location.href = '/login.html';
