@@ -741,25 +741,6 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
         console.log('navigating...');
     }
 
-    var confirmUserType = function (ev) {
-        // Appending dialog to document.body to cover sidenav in docs app
-        var confirm = $mdDialog.confirm()
-            .title('Welcome! Select User Type')
-            .textContent('Are you a Volunteer or an Organization?')
-            .ariaLabel('User Type')
-            .targetEvent(ev)
-            .ok('Volunteer')
-            .cancel('Organization');
-
-        $mdDialog.show(confirm).then(function () {
-            $scope.gUserType = 'vol';
-        }, function () {
-            $scope.gUserType = 'org';
-        });
-    };
-
-    $scope.confirmUserType = confirmUserType;
-
     //For Google Sign In
     function onSignIn(googleUser) {
         console.log('sign in called');
@@ -777,7 +758,7 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
 
         //get user.. if found.. then update scope.. etc..
         //else..  confirm type etc.
-        confirmUserType($event);
+        // confirmUserType($event);
         //Creating a user based on GUser Profile
         var gUser = {
             "uId": profile.getId(),
