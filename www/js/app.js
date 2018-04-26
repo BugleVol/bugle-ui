@@ -787,7 +787,7 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
 
     $scope.setGUserType = function(type) {
         var usr = $scope.tempGUser;
-        usr[type] = type;
+        usr.type = type;
         console.log('Google User has set the type. User Object is: ' + JSON.stringify(usr));
         updateScopeUser(usr);
         localStorageService.set('sessionUser', null);
