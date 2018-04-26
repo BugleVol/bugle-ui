@@ -185,13 +185,15 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
             
         }
 
-        var validUnauthPage = $window.location.href.includes('/tempGLogin.html') || $window.location.href.includes('/login.html') || $window.location.href.includes('/organisationSignup.html') || $window.location.href.includes('/volunteerSignup.html');
+        var tempPage = $window.location.href.includes('/tempGLogin.html');
 
-        if (!validUnauthPage && !$scope.user) {
+        var validUnauthPage = $window.location.href.includes('/login.html') || $window.location.href.includes('/organisationSignup.html') || $window.location.href.includes('/volunteerSignup.html');
+
+        if (!tempPage && !validUnauthPage && !$scope.user) {
             $window.location.href = '/login.html';
         }
 
-        if (validUnauthPage && $scope.user) {
+        if (!tempPage && validUnauthPage && $scope.user) {
             if ($scope.user.type == 'vol') {
                 $window.location.href = '/volunteer.html';
             } else {
