@@ -806,7 +806,7 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
                         console.log('updating session user to: ' + JSON.stringify(dbuser));
                         localStorageService.set('sessionUser', null);
                         localStorageService.set('sessionUser', dbuser);
-                        if (dbuser.type === 'vol') {
+                        if (dbuser.type == 'vol') {
                             $window.location.href = '/volunteer.html';
                         } else {
                             $window.location.href = '/organization.html';
