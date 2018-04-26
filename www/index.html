@@ -29,6 +29,8 @@
     <br>
     <div class="g-signin2" data-onsuccess="onSignIn"></div>
 
+    <md-button ng-click="confirmUserType()">Ask User Type</md-button>
+    <div>User Type: {{gUserType}}</div>
 
     <a href="#" onclick="signOut();">Sign out</a>
     <script>

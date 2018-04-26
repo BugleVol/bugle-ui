@@ -84,7 +84,7 @@ app.service('UserService', function () {
 });
 
 
-app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService', 'localStorageService', function ($scope, $http, $window, $mdToast, UserService, localStorageService) {
+app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService', 'localStorageService', '$mdDialog', function ($scope, $http, $window, $mdToast, UserService, localStorageService, $mdDialog) {
 
     $scope.title = 'Bugle Beta App';
 
@@ -731,6 +731,25 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
         console.log('navigating...');
     }
 
+    var confirmUserType = function (ev) {
+        // Appending dialog to document.body to cover sidenav in docs app
+        var confirm = $mdDialog.confirm()
+            .title('Welcome! Select User Type')
+            .textContent('Are you a Volunteer or an Organization?')
+            .ariaLabel('User Type')
+            .targetEvent(ev)
+            .ok('Volunteer')
+            .cancel('Organization');
+
+        $mdDialog.show(confirm).then(function () {
+            $scope.gUserType = 'vol';
+        }, function () {
+            $scope.gUserType = 'org';
+        });
+    };
+
+    $scope.confirmUserType = confirmUserType;
+
     //For Google Sign In
     function onSignIn(googleUser) {
         var profile = googleUser.getBasicProfile();
@@ -739,22 +758,38 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
         console.log('Image URL: ' + profile.getImageUrl());
         console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
         $scope.$digest();
+
+        //once user signs in using google, check if his record is in our database.
+        //if it is there, then just redirect to appropriate page, else confirm user type and save the new user to DB.
+        // update user scope in both cases.
+
+
+        //get user.. if found.. then update scope.. etc..
+        //else..  confirm type etc.
+        confirmUserType($event);
         //Creating a user based on GUser Profile
         var gUser = {
             "uId": profile.getId(),
             "uName": profile.getName(),
             "email": profile.getEmail(),
-            "type": "guser"
+            "type": $scope.gUserType
         };
+
+
+
         updateScopeUser(gUser);
         console.log('updating session user to (google): ' + JSON.stringify(gUser));
         localStorageService.set('sessionUser', null);
         localStorageService.set('sessionUser', gUser);
         //should type be gUser? or normal vol/org. - should we ask org/vol from user in a modal?
         //Should I save this in our database as well? - don't save password, save id, name, email, give option to add mobile and dob.
-        $window.location.href='/volunteer.html';
+        if (gUser.type === 'vol') {
+            $window.location.href = '/volunteer.html';
+        } else {
+            $window.location.href = '/organization.html';
+        }
     }
     window.onSignIn = onSignIn;
 
 
-}]);
+}]);    
