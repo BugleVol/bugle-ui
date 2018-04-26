@@ -760,8 +760,6 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
 
     // update user Profile details function
     $scope.update = function (user) {
-
-        $scope.dataLoading = true;
         console.log('update user called for user ' + user.uName);
         var updateUserURL = serviceURL + '/edit-user';
         var updateUserInfo = {
@@ -794,6 +792,7 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
 
         //calling the API only if there are no error on forms
         if (!$scope.dobError && !$scope.mobileError) {
+            $scope.dataLoading = true;
             $http({
                 url: updateUserURL,
                 method: 'POST',
