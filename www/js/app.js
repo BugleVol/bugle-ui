@@ -93,6 +93,8 @@ app.service('UserService', function () {
 
 app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService', 'localStorageService', '$mdDialog', function ($scope, $http, $window, $mdToast, UserService, localStorageService, $mdDialog) {
 
+    var serviceURL = 'https://bugle-pl-srv.herokuapp.com';
+
     $scope.title = 'Bugle Beta App';
 
     // Actual User data will be fetched from the session - remove this hardcoding after session is implemented.
@@ -164,7 +166,7 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
             }
 
             $http({
-                url: 'https://bugle-pl-srv.herokuapp.com/details-val',
+                url: serviceURL + '/details-val',
                 method: 'POST',
                 data: data,
                 headers: { 'Content-Type': 'application/json' }
@@ -185,6 +187,17 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
             
         }
 
+        var orgPage =  $window.location.href.includes('/organization.html') || $window.location.href.includes('/createEvent.html') || $window.location.href.includes('/eventVolunteers.html');
+        if (orgPage && $scope.user.type == 'vol') {
+            console.log('redirecting lost volunteer to Volunteer Home page.');
+            $window.location.href = '/volunteer.html';
+        }
+
+        var volPage = $window.location.href.includes('/volunteerEvents.html') || $window.location.href.includes('/volunteer.html') || $window.location.href.includes('/orgEvents.html');
+        if (volPage && $scope.user.type == 'org') {
+            console.log('redirecting lost organization to Organization Home page.');
+            $window.location.href = '/organization.html';
+        }
         var tempPage = $window.location.href.includes('/tempGLogin.html');
 
         var validUnauthPage = $window.location.href.includes('/login.html') || $window.location.href.includes('/organisationSignup.html') || $window.location.href.includes('/volunteerSignup.html');
@@ -211,7 +224,7 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
         $scope.dataLoading = true;
         console.log('login called');
 
-        var loginURL = 'https://bugle-pl-srv.herokuapp.com/login';
+        var loginURL = serviceURL + '/login';
         // var loginURL = 'localhost:9000/login';
         var loginInfo = {
             'email': $scope.email,
@@ -255,7 +268,7 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
         $scope.dataLoading = true;
         console.log('register called for ' + type);
 
-        var signupURL = 'https://bugle-pl-srv.herokuapp.com/signup';
+        var signupURL = serviceURL + '/signup';
         var signupInfo = {
             'u_name': $scope.u_name,
             'email': $scope.email,
@@ -292,7 +305,7 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
         console.log('fetching organizations from server');
         $http({
             method: 'GET',
-            url: 'https://bugle-pl-srv.herokuapp.com/organizations',
+            url: serviceURL + '/organizations',
             headers: { 'Content-Type': '*/*' }
         }).then(function (response) {
             if (response.data.status != 'error') {
@@ -315,7 +328,7 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
     // Get volunteer events function start
     $scope.getVolunteerEvents = function (uId) {
         console.log('fetching events for volunteer ID: ' + uId);
-        var srvURL = 'https://bugle-pl-srv.herokuapp.com/volunteer-events/' + uId;
+        var srvURL = serviceURL + '/volunteer-events/' + uId;
         console.log('API URL: ' + srvURL)
         $http({
             method: 'GET',
@@ -342,7 +355,7 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
     // Get organization events function start
     $scope.getOrganizationEvents = function (uId) {
         console.log('fetching events for organization ID: ' + uId);
-        var srvURL = 'https://bugle-pl-srv.herokuapp.com/organizations/' + uId;
+        var srvURL = serviceURL + '/organizations/' + uId;
         console.log('API URL: ' + srvURL)
         $http({
             method: 'GET',
@@ -369,7 +382,7 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
         console.log('updating session event to: ' + JSON.stringify($scope.eventSelected));
         localStorageService.set('event', null);
         localStorageService.set('event', $scope.eventSelected);
-        var srvURL = 'https://bugle-pl-srv.herokuapp.com/event-volunteers/' + $scope.eventSelected.eId;
+        var srvURL = serviceURL + '/event-volunteers/' + $scope.eventSelected.eId;
         console.log('API URL: ' + srvURL)
         $http({
             method: 'GET',
@@ -543,7 +556,7 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
 
         $http({
             method: 'POST',
-            url: 'https://bugle-pl-srv.herokuapp.com/apply-event',
+            url: serviceURL + '/apply-event',
             data: eventApplication,
             headers: { 'Content-Type': 'application/json' }
         }).then(function (response) {
@@ -576,7 +589,7 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
 
         $http({
             method: 'POST',
-            url: 'https://bugle-pl-srv.herokuapp.com/leave-event',
+            url: serviceURL + '/leave-event',
             data: Leavingevent,
             headers: { 'Content-Type': 'application/json' }
         }).then(function (response) {
@@ -610,7 +623,7 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
         $scope.dataLoading = true;
         console.log('update user called for user ' + user.uName);
 
-        var updateUserURL = 'https://bugle-pl-srv.herokuapp.com/edit-user'; //edit-user
+        var updateUserURL = serviceURL + '/edit-user'; //edit-user
         var updateUserInfo = {
             'USERS_UID': $scope.user.uId,
             'USERS_UNAME': $scope.user.uName,
@@ -673,7 +686,7 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
         };
 
         $http({
-            url: 'https://bugle-pl-srv.herokuapp.com/event',
+            url: serviceURL + '/event',
             method: 'POST',
             data: eventInfo,
             headers: { 'Content-Type': 'application/json' }
@@ -695,7 +708,7 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
 
     $scope.getChats = function () {
         console.log('getting chats for user: ' + $scope.user.uId);
-        var srvURL = 'https://bugle-pl-srv.herokuapp.com/chats/' + $scope.user.uId;
+        var srvURL = serviceURL + '/chats/' + $scope.user.uId;
         console.log('API URL: ' + srvURL)
         $http({
             method: 'GET',
@@ -760,31 +773,62 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
         console.log('Name: ' + profile.getName());
         console.log('Image URL: ' + profile.getImageUrl());
         console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-        $scope.$digest();
-
-        //once user signs in using google, check if his record is in our database.
-        //if it is there, then just redirect to appropriate page, else confirm user type and save the new user to DB.
-        // update user scope in both cases.
-
-
-        //get user.. if found.. then update scope.. etc..
-        //else..  confirm type etc.
-        // confirmUserType($event);
-        //Creating a user based on GUser Profile
+        
         var gUser = {
-            "uId": profile.getId(),
+            "gId": profile.getId(),
             "uName": profile.getName(),
             "email": profile.getEmail(),
             "type": $scope.gUserType
         };
 
-        updateScopeTempUser(gUser);
-        console.log('updating session temp user to (google): ' + JSON.stringify(gUser));
-        localStorageService.set('tempGUser', null);
-        localStorageService.set('tempGUser', gUser);
-        //should type be gUser? or normal vol/org. - should we ask org/vol from user in a modal?
-        //Should I save this in our database as well? - don't save password, save id, name, email, give option to add mobile and dob.
-        $window.location.href = '/tempGLogin.html';
+        if (profile.getEmail()) {
+            console.log('Google Profile does not have an Email!');
+            showToast('Google Profile does not have Email! Sign in using Email');
+            $window.location.href = '/login.html';
+        } else {
+            //fetch user from our database using goolge profile if present.
+            $http({
+                url: serviceURL + '/get-gprof/' + profile.getId(),
+                method: 'GET',
+                headers: { 'Content-Type': '*/*' }
+            }).then(function successLogin(response) {
+                if (response.data.status != 'error') {
+                    console.log('SUCCESS response: ' + JSON.stringify(response));
+                    var dbuser = response.data.user;
+                    if (dbuser) {
+                        console.log('this google user exists in our database: ' + JSON.stringify(response.data.user));
+                        //set user using fetched user and redirect accordingly.
+                        updateScopeUser(dbuser);
+                        console.log('updating session user to: ' + JSON.stringify(user));
+                        localStorageService.set('sessionUser', null);
+                        localStorageService.set('sessionUser', dbuser);
+                        if (dbuser.type === 'vol') {
+                            $window.location.href = '/volunteer.html';
+                        } else {
+                            $window.location.href = '/organization.html';
+                        }
+                    } else {
+                        console.log('This google user is here for the first time. Save them to our database.');
+                        //show choose type page first and then save the user from there.
+                        updateScopeTempUser(gUser);
+                        console.log('updating local temp user to (google): ' + JSON.stringify(gUser));
+                        localStorageService.set('tempGUser', null);
+                        localStorageService.set('tempGUser', gUser);
+                        $window.location.href = '/tempGLogin.html';
+                    }
+                } else {
+                    console.log('Could not read the details for this Google user from our database.');
+                    showToast('Google Login failed. Signup using Email!');
+                    $window.location.href = '/login.html';
+                }
+            }, function failLogin(response) {
+                console.log('Could not read the details for this Google user from our database.');
+                    showToast('Google Login failed. Signup using Email!');
+                    $window.location.href = '/login.html';
+            });
+        }
+
+        $scope.$digest();        
     }
     window.onSignIn = onSignIn;
 
@@ -797,18 +841,48 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
     // Update Scope Temp User function end
 
     $scope.setGUserType = function (type) {
+        $scope.dataLoading = true;
         var usr = $scope.tempGUser;
         console.log('TempGUser is: ' + JSON.stringify(usr));
         usr.type = type;
+
         console.log('Google User has set the type. User Object is: ' + JSON.stringify(usr));
-        updateScopeUser(usr);
-        localStorageService.set('sessionUser', null);
-        localStorageService.set('sessionUser', usr);
-        if (usr.type === 'vol') {
-            $window.location.href = '/volunteer.html';
-        } else {
-            $window.location.href = '/organization.html';
-        }
+        //saving this user to our database.
+        var saveGUser = serviceURL + '/save-gprof';
+        var gUserInfo = {
+            'u_name': usr.uName,
+            'email': usr.email,
+            'gId': usr.gId,
+            'type': type
+        };
+
+        $http({
+            url: saveGUser,
+            method: 'POST',
+            data: gUserInfo,
+            headers: { 'Content-Type': 'application/json' }
+        }).then(function (response) {
+            //TODO: check if status in response is 'success'
+            if (response.data.status != 'error') {
+                console.log('SUCCESS response: ' + JSON.stringify(response));
+                updateScopeUser(usr);
+                localStorageService.set('sessionUser', null);
+                localStorageService.set('sessionUser', usr);
+                if (usr.type === 'vol') {
+                    $window.location.href = '/volunteer.html';
+                } else {
+                    $window.location.href = '/organization.html';
+                }
+            } else {
+                console.log(response.data.message);
+                showToast('Sorry Could not sign in! Try again later.');
+            }
+        }, function (response) {
+            console.log('ERROR: ' + JSON.stringify(response));
+            showToast('Sorry Could not sign in! Try again later.');
+        }).finally(function () {
+            $scope.dataLoading = false;
+        });
     }
 
-}]);    
+}]);
