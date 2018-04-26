@@ -474,15 +474,18 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
         UserService.loggedInUser = null;
         $scope.user = null;
         localStorageService.clearAll();
-        //logout google user.
+        $window.location.href = '/login.html';
+    }
+    // logout function end
+
+    // logout google user function start
+    $scope.logoutGUser = function () {
         var auth2 = gapi.auth2.getAuthInstance();
         auth2.signOut().then(function () {
             console.log('Google User signed out.');
         });
-
-        $window.location.href = '/login.html';
     }
-    // logout function end
+    // logout google user function start
 
     // view event details function end
     $scope.viewEventDetails = function (event) {
@@ -868,6 +871,7 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
                 console.log('SUCCESS response: ' + JSON.stringify(response));
                 var user = JSON.parse(response.data.user);
                 user.password = usr.gId;
+                user.gId = usr.gId;
                 updateScopeUser(user);
                 localStorageService.set('sessionUser', null);
                 localStorageService.set('sessionUser', user);
