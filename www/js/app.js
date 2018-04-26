@@ -798,7 +798,7 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
             }).then(function successLogin(response) {
                 if (response.data.status != 'error') {
                     console.log('SUCCESS response: ' + JSON.stringify(response));
-                    var dbuser = response.data.user;
+                    var dbuser = JSON.parse(response.data.user);
                     if (dbuser != "null") {
                         console.log('this google user exists in our database: ' + JSON.stringify(response.data.user));
                         //set user using fetched user and redirect accordingly.
@@ -806,7 +806,7 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
                         console.log('updating session user to: ' + JSON.stringify(dbuser));
                         localStorageService.set('sessionUser', null);
                         localStorageService.set('sessionUser', dbuser);
-                        console.log('The dbuser type is: ' + JSON.parse(dbuser).type);
+                        console.log('The dbuser type is: ' + dbuser.type);
                         if (dbuser.type == 'vol') {
                             $window.location.href = '/volunteer.html';
                         } else if (dbuser.type == 'org') {
