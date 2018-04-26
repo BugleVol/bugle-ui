@@ -185,14 +185,7 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
             
         }
 
-        //To enable Logout on profile page?
-        if ($window.location.href.includes('/profile.html')) {
-            gapi.load('auth2', function() {
-                gapi.auth2.init();
-              });
-        }
-
-        var validUnauthPage = $window.location.href.includes('/login.html') || $window.location.href.includes('/organisationSignup.html') || $window.location.href.includes('/volunteerSignup.html');
+        var validUnauthPage = $window.location.herf.includes('/tempGLogin.html') || $window.location.href.includes('/login.html') || $window.location.href.includes('/organisationSignup.html') || $window.location.href.includes('/volunteerSignup.html');
 
         if (!validUnauthPage && !$scope.user) {
             $window.location.href = '/login.html';
@@ -466,6 +459,7 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
         UserService.loggedInUser = null;
         $scope.user = null;
         localStorageService.clearAll();
+        //logout google user.
         var auth2 = gapi.auth2.getAuthInstance();
         auth2.signOut().then(function () {
             console.log('Google User signed out.');
