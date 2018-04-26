@@ -806,9 +806,10 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
                         console.log('updating session user to: ' + JSON.stringify(dbuser));
                         localStorageService.set('sessionUser', null);
                         localStorageService.set('sessionUser', dbuser);
+                        console.log('The dbuser type is: ' + dbuser.type);
                         if (dbuser.type == 'vol') {
                             $window.location.href = '/volunteer.html';
-                        } else {
+                        } else if (dbuser.type == 'org') {
                             $window.location.href = '/organization.html';
                         }
                     } else {
