@@ -175,7 +175,12 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
             }).finally(function () {
                 $scope.dataLoading = false;
             });
+            
         }
+
+        gapi.load('auth2', function () {
+            gapi.auth2.init();
+        });
 
         var validUnauthPage = $window.location.href.includes('/login.html') || $window.location.href.includes('/organisationSignup.html') || $window.location.href.includes('/volunteerSignup.html');
 
@@ -785,7 +790,7 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
     }
     // Update Scope Temp User function end
 
-    $scope.setGUserType = function(type) {
+    $scope.setGUserType = function (type) {
         var usr = $scope.tempGUser;
         usr.type = type;
         console.log('Google User has set the type. User Object is: ' + JSON.stringify(usr));
