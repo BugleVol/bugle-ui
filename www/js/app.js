@@ -865,10 +865,11 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
             //TODO: check if status in response is 'success'
             if (response.data.status != 'error') {
                 console.log('SUCCESS response: ' + JSON.stringify(response));
-                updateScopeUser(usr);
+                var user = JSON.parse(response.data.user);
+                updateScopeUser(user);
                 localStorageService.set('sessionUser', null);
-                localStorageService.set('sessionUser', usr);
-                if (usr.type === 'vol') {
+                localStorageService.set('sessionUser', user);
+                if (user.type === 'vol') {
                     $window.location.href = '/volunteer.html';
                 } else {
                     $window.location.href = '/organization.html';
