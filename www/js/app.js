@@ -185,6 +185,13 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
             
         }
 
+        //To enable Logout on profile page?
+        if ($window.location.href.includes('/profile.html')) {
+            gapi.load('auth2', function() {
+                gapi.auth2.init();
+              });
+        }
+
         var validUnauthPage = $window.location.href.includes('/login.html') || $window.location.href.includes('/organisationSignup.html') || $window.location.href.includes('/volunteerSignup.html');
 
         if (!validUnauthPage && !$scope.user) {
