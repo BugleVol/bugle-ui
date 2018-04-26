@@ -761,7 +761,7 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
     $scope.confirmUserType = confirmUserType;
 
     //For Google Sign In
-    function onSignIn(googleUser, $event) {
+    function onSignIn(googleUser) {
         var profile = googleUser.getBasicProfile();
         console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
         console.log('Name: ' + profile.getName());
@@ -810,6 +810,11 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
         updateScopeUser(usr);
         localStorageService.set('sessionUser', null);
         localStorageService.set('sessionUser', usr);
+        if (user.type === 'vol') {
+            $window.location.href = '/volunteer.html';
+        } else {
+            $window.location.href = '/organization.html';
+        }
     }
 
 }]);    
