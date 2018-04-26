@@ -178,7 +178,7 @@
 
             <br>
             <md-button type="button" class="md-raised md-accent" ng-hide="updateField" ng-click="modify()">Modify</md-button>
-            <md-button type="button" class="md-raised md-primary" ng-show="updateField" ng-disabled="dataLoading || mobileError || dobError" ng-click="update(user)">Update</md-button>
+            <md-button type="button" class="md-raised md-primary" ng-show="updateField" ng-disabled="dataLoading" ng-click="update(user)">Update</md-button>
             <md-button type="button" class="md-raised md-warn" ng-show="updateField" ng-disabled="dataLoading" ng-click="cancelUpdate(user)">Cancel</md-button>
             <md-button type="button" class="md-raised md-warn pull-right" ng-if="!isGoogleUser" ng-click="logout()">Logout</md-button>
             <md-button type="button" class="md-raised md-warn pull-right" ng-if="isGoogleUser" ng-click="logoutGUser()">G-Logout</md-button>

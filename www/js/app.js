@@ -758,24 +758,6 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
         }
     }
 
-    //check for correct format of dob
-    $scope.checkdob = function () {
-        if (!testingDateStr(user.dob)) {
-            $scope.dobError = true;
-        } else {
-            $scope.dobError = false;
-        }
-    }
-
-    //check for correct format of dob
-    $scope.checkmob = function () {
-        if (!testingPhoneStr(user.mobile)) {
-            $scope.mobileError = true;
-        } else {
-            $scope.mobileError = false;
-        }
-    }
-
     // update user Profile details function
     $scope.update = function (user) {
 
@@ -794,6 +776,21 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
             'USERS_WEBSITE': $scope.user.website,
             'USERS_LOCATION': $scope.user.location
         };
+
+        //validating input
+        //check for correct format of dob
+        if (!testingDateStr(user.dob)) {
+            $scope.dobError = true;
+        } else {
+            $scope.dobError = false;
+        }
+
+        //check for correct format of dob
+        if (!testingPhoneStr(user.mobile)) {
+            $scope.mobileError = true;
+        } else {
+            $scope.mobileError = false;
+        }
 
         //calling the API only if there are no error on forms
         if (!$scope.dobError && !$scope.mobileError) {
