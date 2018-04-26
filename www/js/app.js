@@ -762,6 +762,7 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
 
     //For Google Sign In
     function onSignIn(googleUser) {
+        console.log('sign in called');
         var profile = googleUser.getBasicProfile();
         console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
         console.log('Name: ' + profile.getName());
