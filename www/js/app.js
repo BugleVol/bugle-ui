@@ -788,7 +788,7 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
 
     // Update Scope Temp User function Start
     var updateScopeTempUser = function (usr) {
-        console.log('updating Temp Google user to: ' + usr);
+        console.log('updating Temp Google user to: ' + JSON.stringify(usr));
         UserService.loggedInUser = usr;
         $scope.tempGUser = usr;
     }
