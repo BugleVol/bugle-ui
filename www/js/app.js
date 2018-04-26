@@ -132,6 +132,13 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
 
     $scope.tempGUser = {};
 
+    //Loading Google API
+    function onLoad() {
+        gapi.load('auth2', function() {
+          gapi.auth2.init();
+        });
+      }
+
     $scope.fetchSession = function () {
         $scope.user = localStorageService.get('sessionUser');
         $scope.organizations = localStorageService.get('organizations');
@@ -177,11 +184,6 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
             });
             
         }
-
-        //Loading Google API
-        gapi.load('auth2', function () {
-            gapi.auth2.init();
-        });
 
         var validUnauthPage = $window.location.href.includes('/login.html') || $window.location.href.includes('/organisationSignup.html') || $window.location.href.includes('/volunteerSignup.html');
 
