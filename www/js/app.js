@@ -792,7 +792,7 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
         updateScopeUser(usr);
         localStorageService.set('sessionUser', null);
         localStorageService.set('sessionUser', usr);
-        if (user.type === 'vol') {
+        if (usr.type === 'vol') {
             $window.location.href = '/volunteer.html';
         } else {
             $window.location.href = '/organization.html';
