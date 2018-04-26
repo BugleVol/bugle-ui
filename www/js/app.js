@@ -187,17 +187,6 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
             
         }
 
-        var orgPage =  $window.location.href.includes('/organization.html') || $window.location.href.includes('/createEvent.html') || $window.location.href.includes('/eventVolunteers.html');
-        if (orgPage && $scope.user.type == 'vol') {
-            console.log('redirecting lost volunteer to Volunteer Home page.');
-            $window.location.href = '/volunteer.html';
-        }
-
-        var volPage = $window.location.href.includes('/volunteerEvents.html') || $window.location.href.includes('/volunteer.html') || $window.location.href.includes('/orgEvents.html');
-        if (volPage && $scope.user.type == 'org') {
-            console.log('redirecting lost organization to Organization Home page.');
-            $window.location.href = '/organization.html';
-        }
         var tempPage = $window.location.href.includes('/tempGLogin.html');
 
         var validUnauthPage = $window.location.href.includes('/login.html') || $window.location.href.includes('/organisationSignup.html') || $window.location.href.includes('/volunteerSignup.html');
@@ -212,6 +201,18 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
             } else {
                 $window.location.href = '/organization.html';
             }
+        }
+
+        var orgPage =  $window.location.href.includes('/organization.html') || $window.location.href.includes('/createEvent.html') || $window.location.href.includes('/eventVolunteers.html');
+        if (orgPage && $scope.user.type == 'vol') {
+            console.log('redirecting lost volunteer to Volunteer Home page.');
+            $window.location.href = '/volunteer.html';
+        }
+
+        var volPage = $window.location.href.includes('/volunteerEvents.html') || $window.location.href.includes('/volunteer.html') || $window.location.href.includes('/orgEvents.html');
+        if (volPage && $scope.user.type == 'org') {
+            console.log('redirecting lost organization to Organization Home page.');
+            $window.location.href = '/organization.html';
         }
 
         //TODO: check how to implement this logic
