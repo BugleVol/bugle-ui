@@ -929,7 +929,7 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
                 if (response.data.status != 'error') {
                     console.log('SUCCESS response: ' + JSON.stringify(response));
                     var dbuser = JSON.parse(response.data.user);
-                    if (dbuser != "null") {
+                    if (dbuser != null) {
                         console.log('this google user exists in our database: ' + JSON.stringify(response.data.user));
                         //set user using fetched user and redirect accordingly.
                         updateScopeUser(dbuser);
