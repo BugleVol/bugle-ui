@@ -622,7 +622,6 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
 
         $scope.dataLoading = true;
         console.log('update user called for user ' + user.uName);
-
         var updateUserURL = serviceURL + '/edit-user'; //edit-user
         var updateUserInfo = {
             'USERS_UID': $scope.user.uId,
@@ -866,6 +865,7 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
             if (response.data.status != 'error') {
                 console.log('SUCCESS response: ' + JSON.stringify(response));
                 var user = JSON.parse(response.data.user);
+                user.password = usr.gId;
                 updateScopeUser(user);
                 localStorageService.set('sessionUser', null);
                 localStorageService.set('sessionUser', user);
