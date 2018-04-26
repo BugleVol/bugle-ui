@@ -381,7 +381,7 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
 
     // Update Scope User function Start
     var updateScopeUser = function (usr) {
-        console.log('updating Service user to: ' + usr);
+        console.log('updating Service user to: ' + JSON.stringify(usr));
         UserService.loggedInUser = usr;
         $scope.user = usr;
     }
