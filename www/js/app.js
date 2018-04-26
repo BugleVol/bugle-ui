@@ -803,7 +803,7 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
                         console.log('this google user exists in our database: ' + JSON.stringify(response.data.user));
                         //set user using fetched user and redirect accordingly.
                         updateScopeUser(dbuser);
-                        console.log('updating session user to: ' + JSON.stringify(user));
+                        console.log('updating session user to: ' + JSON.stringify(dbuser));
                         localStorageService.set('sessionUser', null);
                         localStorageService.set('sessionUser', dbuser);
                         if (dbuser.type === 'vol') {
