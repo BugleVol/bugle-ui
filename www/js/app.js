@@ -178,6 +178,7 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
             
         }
 
+        //Loading Google API
         gapi.load('auth2', function () {
             gapi.auth2.init();
         });
@@ -792,6 +793,7 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
 
     $scope.setGUserType = function (type) {
         var usr = $scope.tempGUser;
+        console.log('TEMPGUser is: ' + JSON.stringify(usr));
         usr.type = type;
         console.log('Google User has set the type. User Object is: ' + JSON.stringify(usr));
         updateScopeUser(usr);
