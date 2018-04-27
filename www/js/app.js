@@ -161,10 +161,15 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
             console.log('the logged in user is: ' + JSON.stringify($scope.user));
             //load gapi if he is a gUser else set isGoogleUser to false
             //loading gapi again?
-            gapi.load('auth2', function () {
-                gapi.auth2.init();
-            });
-            $scope.isGoogleUser = true;
+            if ($scope.user.gId === $scope.user.password) {
+                gapi.load('auth2', function () {
+                    gapi.auth2.init();
+                });
+                $scope.isGoogleUser = true;
+            } else {
+                $scope.isGoogleUser = false;
+            }
+           
         }
 
         // do this only on the event details page for volunteers.
