@@ -1034,6 +1034,7 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
             'u_name': usr.uName,
             'email': usr.email,
             'gprofid': usr.gprofid,
+            'password': usr.gprofid,
             'type': type
         };
 
