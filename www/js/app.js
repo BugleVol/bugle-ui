@@ -158,6 +158,8 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
         //only do this for profile page.
         if ($window.location.href.includes('/profile.html')) {
             console.log('doing the special thing for profile page.');
+            console.log('the logged in user is: ' + JSON.stringify($scope.user));
+            //load gapi if he is a gUser else set isGoogleUser to false
             //loading gapi again?
             gapi.load('auth2', function () {
                 gapi.auth2.init();
