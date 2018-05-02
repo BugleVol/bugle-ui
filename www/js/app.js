@@ -675,7 +675,7 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
         };
 
         console.log('Approving Volunteers: ' + JSON.stringify(eventApplication));
-
+        $scope.dataLoading = true;
         $http({
             method: 'POST',
             url: serviceURL + '/approve-volunteers',
@@ -693,6 +693,8 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
             }
         }, function (response) {
             console.log('ERROR: ' + JSON.stringify(response));
+        }).finally(function () {
+            $scope.dataLoading = false;
         });
     };
     // function for a org to approve volunteer end.
@@ -705,7 +707,7 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
         };
 
         console.log('Rejecting Volunteers: ' + JSON.stringify(eventApplication));
-
+        $scope.dataLoading = true;
         $http({
             method: 'POST',
             url: serviceURL + '/reject-volunteers',
@@ -723,6 +725,8 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
             }
         }, function (response) {
             console.log('ERROR: ' + JSON.stringify(response));
+        }).finally(function () {
+            $scope.dataLoading = false;
         });
     };
     // function for a org to reject volunteer end.
