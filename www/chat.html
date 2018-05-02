@@ -53,9 +53,14 @@
                     <input id="chatID" ng-show="false" type="text" ng-value="chat.cId" />
                     <input id="eventID" ng-show="false" type="text" ng-value="chat.eId" />
                     <input id="mID" ng-show="false" type="text" ng-value="chat.mId" />
-                    <button type="submit" class="send_button pull-right" id="send"><i class="fas fa-chevron-right"></i></button>
+                    <button type="submit" class="send_button pull-right" id="send">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
                     <input id="message" type="text" placeholder="Message" style="border: solid 1px lightgray; width: 85%;" />
                 </form>
+                <md-button class="md-primary md-raised center-block" ng-click="loadParticipants(chat.eId, $event)"   >
+                    Show Participants
+                  </md-button>
             </div>
         </div>
 
