@@ -40,6 +40,9 @@
                     <i class="fas fa-angle-left"></i>
                 </md-button>
                 <span flex>{{chat.cName}}</span>
+                <md-button class="md-raised pull-right" ng-click="loadParticipants(chat.eId, $event)" aria-label="Show Participants">
+                    Participants
+                </md-button>
             </div>
         </md-toolbar>
 
@@ -58,9 +61,6 @@
                     </button>
                     <input id="message" type="text" placeholder="Message" style="border: solid 1px lightgray; width: 85%;" />
                 </form>
-                <md-button class="md-primary md-raised center-block" ng-click="loadParticipants(chat.eId, $event)"   >
-                    Show Participants
-                  </md-button>
             </div>
         </div>
 
