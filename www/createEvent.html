@@ -127,7 +127,9 @@
                     var scope = angular.element(document.getElementById("location")).scope();
 
                     scope.location = address
-                    document.getElementById("locationshow").value = address
+                    document.getElementById("locationshow").value = address;
+                    document.getElementById("locationshow").focus();
+                    document.getElementById('map').style.display = 'none';
                 }
             });
         }
@@ -136,31 +138,16 @@
         async defer></script>
 </head>
 
-<body ng-controller="index" ng-init="fetchSession()">
+<body ng-controller="index" ng-init="fetchSession()" onload="document.getElementById('map').style.display = 'none';">
 
     <!-- The Create Event Page -->
-
     <div class='home active'>
-
-        <!-- <div class='home__header center_text'>
-            <h3><b>{{user.uName}}</b></h3>
-        </div> -->
-
         <md-toolbar>
             <div class="md-toolbar-tools">
                 <md-button class="md-icon-button" aria-label="Go Back" ng-click="gotoPage('organization')">
                     <i class="fas fa-angle-left"></i>
                 </md-button>
-
-                <!-- <md-truncate class="center_text" style="position: absolute; left: 90px; right: 170px; top: 13px; bottom: 13px;">{{user.uName}}</md-truncate> -->
-
                 <span flex>Create Event</span>
-                <!-- <md-button class="md-raised" aria-label="Learn More">
-                Learn More
-              </md-button>
-              <md-button class="md-fab md-mini" aria-label="Favorite">
-                <md-icon md-svg-icon="img/icons/favorite.svg"></md-icon>
-              </md-button> -->
             </div>
         </md-toolbar>
 
@@ -175,13 +162,13 @@
 
                     <md-input-container>
                         <label for="location">Location</label>
-                        <input id="locationshow" type="text" placeholder="Click a place on map to select location">
+                        <input id="locationshow" type="text" onfocus="document.getElementById('map').style.display = 'block';"
+                            placeholder="Click a place on map to select location">
                         <input type="hidden" id="location" ng-model="location" required flex/>
-
-                        <input id="pac-input" class="controls" type="text" placeholder="Search Box">
-                        <div id="map" style="position: relative; overflow: hidden; height:300px;width:100%"></div>
-
                     </md-input-container>
+
+                    <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+                    <div id="map" style="position: relative; overflow: hidden; height:300px;width:100%"></div>
 
                     <md-input-container>
                         <label for="datetime">Date/Time (MM/DD/YYYY hh:mmAM/PM)</label>
@@ -189,13 +176,13 @@
                     </md-input-container>
 
                     <md-input-container>
-                        <label for="description">Description (Max 200)</label>
+                        <label for="description">Description (Max 200 characters)</label>
                         <input ng-model="description" type="text" maxlength="150" required flex>
                     </md-input-container>
 
                     <md-input-container>
                         <label for="members">Members (Max 100)</label>
-                        <input ng-model="members" min=1 type="number" required flex>
+                        <input ng-model="members" name="members" min="1" max="100" integer required flex>
                     </md-input-container>
 
                     <input class="form-control" type="hidden" id='u_id' name="u_id" value="{{user.id}}" />
@@ -216,9 +203,7 @@
                 <a href="profile.html">Profile</a>
             </div>
         </div>
-
     </div>
-
     <!-- End Create Event Page -->
 
 </body>
