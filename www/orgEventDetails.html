@@ -206,11 +206,11 @@
                                     placeholder="Click a place on map to select location" />
                                 <input type="hidden" id="location" ng-model="event.location" required flex/>
                             </div>
+                            <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+                            <div id="map" style="position: relative; overflow: hidden; height:300px;width:100%"></div>
                             <div ng-if="locationError" style="color:red;">Location cannot be Empty</div>
                         </td>
                     </tr>
-                    <input id="pac-input" class="controls" type="text" placeholder="Search Box">
-                    <div id="map" style="position: relative; overflow: hidden; height:300px;width:100%"></div>
                     <tr>
                         <td>
                             <b> Required Members:</b>

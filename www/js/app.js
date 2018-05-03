@@ -984,7 +984,6 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
     };
 
     $scope.createEvent = function () {
-
         console.log('creating event.');
 
         var eventInfo = {
@@ -996,7 +995,6 @@ app.controller('index', ['$scope', '$http', '$window', '$mdToast', 'UserService'
             "u_id": $scope.user.uId,
             "status": "active"
         };
-        console.log('checking: ' + JSON.stringify(eventInfo));
         $scope.dataLoading = true;
         $http({
             url: serviceURL + '/event',
